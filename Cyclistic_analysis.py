@@ -4,12 +4,17 @@
 # In[1]:
 
 
-### Divvy_Exercise_Full_Year_Analysis ###
-
-# This analysis is based on the Divvy case study "'Sophisticated, Clear, and Polished’: Divvy and Data 
+#  
+# This script is the part of the capstone for the Google Data Analytics Professional Certificate.
+# The purpose of this analysis is to answer the question 'How casual riders and members use Cyclistic 
+# bikes differently'.
+#
+# The findings are to be used by Cyclistic marketing team to design a marketing strategy to convert 
+# casual riders to members. 
+#
+# This case study is based on the Divvy case study "'Sophisticated, Clear, and Polished’: Divvy and Data 
 # Visualization" written by Kevin Hartman (found here: https://artscience.blog/home/divvy-dataviz-case-study).
-# The purpose of this script is to do data analysis of one year data from Divvy, with the purpose of answering 
-# the key question: “In what ways do members and casual riders use Divvy bikes differently?”
+#
 
 
 # In[2]:
@@ -17,11 +22,12 @@
 
 # # # # # # # # # # # # # # # # # # # # # # # 
 # Install required packages
-# pandas for dataframes
-# numpy for 
-# matplotlib.pyplot, Subplot, labelLine, labelLines for making graphs
-# Counter
-# datetime
+# pandas for dataframes 
+# numpy for numerical computing
+# matplotlib for making graphs
+# Counter for counting how many times a value is found
+# datetime for managing datetime format
+# time for evaluating how much time is needed to run the script
 # # # # # # # # # # # # # # # # # # # # # # #  
 
 import pandas as pd
@@ -32,6 +38,8 @@ from mpl_toolkits.axisartist.axislines import Subplot
 from collections import Counter
 from labellines import labelLine, labelLines
 import time
+import warnings
+warnings.filterwarnings('ignore') 
 
 
 # In[3]:
@@ -44,7 +52,7 @@ time.ctime()
 
 
 ##===================
-#STEP 2: COLLECT DATA
+#STEP 1: COLLECT DATA
 ##===================
 sep20 = pd.read_csv(r"C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edited\09_2020.csv")
 oct20 = pd.read_csv(r"C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edited\10_2020.csv")
@@ -60,6 +68,10 @@ jul21 = pd.read_csv(r"C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edi
 aug21 = pd.read_csv(r"C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edited\08_2021.csv")
 
 
+
+##=============================
+#STEP 2: COMBINE TO A SINGLE DF
+##=============================
 
 #stack all months to one data frame
 # Made sure that all months have the same colunm name before combining them
@@ -134,9 +146,9 @@ len(sep20_to_aug21.loc[(sep20_to_aug21.started_at >= sep20_to_aug21.ended_at)]) 
 len(set(sep20_to_aug21.start_station_name)) #=758
 len(set(sep20_to_aug21.end_station_name)) #=757
 #-> one station more for start_station_name. Why?
-
+#-
 #Error investigation
-
+#-
 #What station?
 sorted_a = sep20_to_aug21.sort_values(by=["start_station_name"],ascending=True)
 sorted_b = sep20_to_aug21.sort_values(by=["end_station_name"],ascending=True)
@@ -157,7 +169,7 @@ sep20_to_aug21.loc[(sep20_to_aug21.start_station_name == '351')]
 #finding when the first rides of the station happen:
 sep20_to_aug21.started_at.loc[(sep20_to_aug21.start_station_name == 'Mulligan Ave & Wellington Ave')].min()
 
-# Error findings:
+# Error  investigation findings:
 #Possibly error happened in the first days of operation of the station. Instead of station name, 
 #station ID was recorded.
 
@@ -168,7 +180,7 @@ sep20_to_aug21.loc[(sep20_to_aug21.start_station_name == sep20_to_aug21.start_st
 sep20_to_aug21.loc[(sep20_to_aug21.end_station_name == sep20_to_aug21.end_station_id)]
 
 #New issue with data identified: station names that were used from cyclistic staff for bike maintenance.
-#Should be removed from data
+#Should be removed from data.
 
 
 
@@ -188,7 +200,6 @@ cleaned = sep20_to_aug21.loc[sep20_to_aug21.started_at < sep20_to_aug21.ended_at
 
 #verifying that there are no more ride_id duplicates:
 len(cleaned.ride_id) - len(set(cleaned.ride_id)) #returned 0. => no duplicates
-
 
 #filtering out bikes that went for repair:
 cleaned = cleaned.loc[(cleaned.start_station_name != "Base - 2132 W Hubbard Warehouse")&
@@ -278,7 +289,7 @@ cleaned.reset_index(inplace = True, drop = True)
 # Renaming final cleaned dataframe:
 yearly = cleaned
 
-#saving it to a csv to be used 
+#saving it to a csv
 yearly.to_csv(r'C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Exported_Tables\yearly.csv',index = False)
 
 # creating other dataframes that will be usefull
@@ -323,15 +334,14 @@ fall_c = fall_.loc[fall_.member_casual == 'casual']
 # In[11]:
 
 
-#---------------------
-#Descriptive analysis:
-#---------------------
+#======================
+# STEP 4: DATA ANALYSIS
+#======================
 
 
-
-#
+#--------------
 #Mean duration:
-#
+#--------------
 
 mean_trip_dur = yearly.trip_duration_min.mean()
 mean_trip_dur_mem = yearly_member.trip_duration_min.mean()
@@ -345,9 +355,9 @@ print ('For casuals:','{0:.1f}'.format(mean_trip_dur_cas),'min')
 # In[12]:
 
 
-#
+#-------------
 #Preferred day
-#
+#-------------
 
 pref_day = yearly.day_name.mode()[0]
 pref_day_mem = yearly_member.day_name.mode()[0]
@@ -365,7 +375,9 @@ print ('For casuals:',pref_day_cas)
 def count(df,value):
     return len(df.loc[(df==value)])
 
-# More than a day:
+#
+# Trips more than a day:
+#
 trips_more_than_a_day = yearly.loc[(yearly.trip_duration_min > (1*24*60))]#&(cleaned1.trip_duration_min < (48*60))]
 more_than_a_day = len(trips_more_than_a_day) #no of rides that lasted more than a day
 print ("No of rides that lasted more than a day:",more_than_a_day,'{0:.2f}'.format(more_than_a_day/len(yearly)*100),"% of total")
@@ -376,8 +388,9 @@ print (count(trips_more_than_a_day.member_casual,"member")," where members (",'{
 # In[14]:
 
 
+#
 #defining functions to be used for our analysis:
-
+#
 
 #Defining one function to identify members and casual riders.
 #this filter will return two new df's, for members and for casual riders
@@ -3363,11 +3376,4 @@ plt.show()
 
 
 time.ctime()
-
-
-# In[ ]:
-
-
-#Last corrections: 
-#Remove time
 

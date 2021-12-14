@@ -13974,12 +13974,17 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Divvy_Exercise_Full_Year_Analysis ###</span>
-
-<span class="c1"># This analysis is based on the Divvy case study &quot;&#39;Sophisticated, Clear, and Polished’: Divvy and Data </span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  </span>
+<span class="c1"># This script is the part of the capstone for the Google Data Analytics Professional Certificate.</span>
+<span class="c1"># The purpose of this analysis is to answer the question &#39;How casual riders and members use Cyclistic </span>
+<span class="c1"># bikes differently&#39;.</span>
+<span class="c1">#</span>
+<span class="c1"># The findings are to be used by Cyclistic marketing team to design a marketing strategy to convert </span>
+<span class="c1"># casual riders to members. </span>
+<span class="c1">#</span>
+<span class="c1"># This case study is based on the Divvy case study &quot;&#39;Sophisticated, Clear, and Polished’: Divvy and Data </span>
 <span class="c1"># Visualization&quot; written by Kevin Hartman (found here: https://artscience.blog/home/divvy-dataviz-case-study).</span>
-<span class="c1"># The purpose of this script is to do data analysis of one year data from Divvy, with the purpose of answering </span>
-<span class="c1"># the key question: “In what ways do members and casual riders use Divvy bikes differently?”</span>
+<span class="c1">#</span>
 </pre></div>
 
      </div>
@@ -13995,11 +14000,12 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # # # # # # # # # # # # # # # # # # # # # # </span>
 <span class="c1"># Install required packages</span>
-<span class="c1"># pandas for dataframes</span>
-<span class="c1"># numpy for </span>
-<span class="c1"># matplotlib.pyplot, Subplot, labelLine, labelLines for making graphs</span>
-<span class="c1"># Counter</span>
-<span class="c1"># datetime</span>
+<span class="c1"># pandas for dataframes </span>
+<span class="c1"># numpy for numerical computing</span>
+<span class="c1"># matplotlib for making graphs</span>
+<span class="c1"># Counter for counting how many times a value is found</span>
+<span class="c1"># datetime for managing datetime format</span>
+<span class="c1"># time for evaluating how much time is needed to run the script</span>
 <span class="c1"># # # # # # # # # # # # # # # # # # # # # # #  </span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14010,6 +14016,8 @@ a.anchor-link {
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">labellines</span> <span class="kn">import</span> <span class="n">labelLine</span><span class="p">,</span> <span class="n">labelLines</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span> 
 </pre></div>
 
      </div>
@@ -14061,7 +14069,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">##===================</span>
-<span class="c1">#STEP 2: COLLECT DATA</span>
+<span class="c1">#STEP 1: COLLECT DATA</span>
 <span class="c1">##===================</span>
 <span class="n">sep20</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edited\09_2020.csv&quot;</span><span class="p">)</span>
 <span class="n">oct20</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edited\10_2020.csv&quot;</span><span class="p">)</span>
@@ -14077,6 +14085,10 @@ a.anchor-link {
 <span class="n">aug21</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Data\Edited\08_2021.csv&quot;</span><span class="p">)</span>
 
 
+
+<span class="c1">##=============================</span>
+<span class="c1">#STEP 2: COMBINE TO A SINGLE DF</span>
+<span class="c1">##=============================</span>
 
 <span class="c1">#stack all months to one data frame</span>
 <span class="c1"># Made sure that all months have the same colunm name before combining them</span>
@@ -14235,9 +14247,9 @@ dtype: int64</pre>
 <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">start_station_name</span><span class="p">))</span> <span class="c1">#=758</span>
 <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">end_station_name</span><span class="p">))</span> <span class="c1">#=757</span>
 <span class="c1">#-&gt; one station more for start_station_name. Why?</span>
-
+<span class="c1">#-</span>
 <span class="c1">#Error investigation</span>
-
+<span class="c1">#-</span>
 <span class="c1">#What station?</span>
 <span class="n">sorted_a</span> <span class="o">=</span> <span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start_station_name&quot;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">sorted_b</span> <span class="o">=</span> <span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;end_station_name&quot;</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -14258,7 +14270,7 @@ dtype: int64</pre>
 <span class="c1">#finding when the first rides of the station happen:</span>
 <span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">started_at</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">start_station_name</span> <span class="o">==</span> <span class="s1">&#39;Mulligan Ave &amp; Wellington Ave&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 
-<span class="c1"># Error findings:</span>
+<span class="c1"># Error  investigation findings:</span>
 <span class="c1">#Possibly error happened in the first days of operation of the station. Instead of station name, </span>
 <span class="c1">#station ID was recorded.</span>
 
@@ -14269,7 +14281,7 @@ dtype: int64</pre>
 <span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">end_station_name</span> <span class="o">==</span> <span class="n">sep20_to_aug21</span><span class="o">.</span><span class="n">end_station_id</span><span class="p">)]</span>
 
 <span class="c1">#New issue with data identified: station names that were used from cyclistic staff for bike maintenance.</span>
-<span class="c1">#Should be removed from data</span>
+<span class="c1">#Should be removed from data.</span>
 
 
 
@@ -14289,7 +14301,6 @@ dtype: int64</pre>
 
 <span class="c1">#verifying that there are no more ride_id duplicates:</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">cleaned</span><span class="o">.</span><span class="n">ride_id</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">cleaned</span><span class="o">.</span><span class="n">ride_id</span><span class="p">))</span> <span class="c1">#returned 0. =&gt; no duplicates</span>
-
 
 <span class="c1">#filtering out bikes that went for repair:</span>
 <span class="n">cleaned</span> <span class="o">=</span> <span class="n">cleaned</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">cleaned</span><span class="o">.</span><span class="n">start_station_name</span> <span class="o">!=</span> <span class="s2">&quot;Base - 2132 W Hubbard Warehouse&quot;</span><span class="p">)</span><span class="o">&amp;</span>
@@ -14425,7 +14436,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Renaming final cleaned dataframe:</span>
 <span class="n">yearly</span> <span class="o">=</span> <span class="n">cleaned</span>
 
-<span class="c1">#saving it to a csv to be used </span>
+<span class="c1">#saving it to a csv</span>
 <span class="n">yearly</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\Users\Savvas\Documents\DataAnaytics\CaseStudy1\Exported_Tables\yearly.csv&#39;</span><span class="p">,</span><span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># creating other dataframes that will be usefull</span>
@@ -14486,15 +14497,14 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#---------------------</span>
-<span class="c1">#Descriptive analysis:</span>
-<span class="c1">#---------------------</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#======================</span>
+<span class="c1"># STEP 4: DATA ANALYSIS</span>
+<span class="c1">#======================</span>
 
 
-
-<span class="c1">#</span>
+<span class="c1">#--------------</span>
 <span class="c1">#Mean duration:</span>
-<span class="c1">#</span>
+<span class="c1">#--------------</span>
 
 <span class="n">mean_trip_dur</span> <span class="o">=</span> <span class="n">yearly</span><span class="o">.</span><span class="n">trip_duration_min</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">mean_trip_dur_mem</span> <span class="o">=</span> <span class="n">yearly_member</span><span class="o">.</span><span class="n">trip_duration_min</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -14539,9 +14549,9 @@ For casuals: 30.8 min
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#-------------</span>
 <span class="c1">#Preferred day</span>
-<span class="c1">#</span>
+<span class="c1">#-------------</span>
 
 <span class="n">pref_day</span> <span class="o">=</span> <span class="n">yearly</span><span class="o">.</span><span class="n">day_name</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">pref_day_mem</span> <span class="o">=</span> <span class="n">yearly_member</span><span class="o">.</span><span class="n">day_name</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -14590,7 +14600,9 @@ For casuals: Saturday
 <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="o">==</span><span class="n">value</span><span class="p">)])</span>
 
-<span class="c1"># More than a day:</span>
+<span class="c1">#</span>
+<span class="c1"># Trips more than a day:</span>
+<span class="c1">#</span>
 <span class="n">trips_more_than_a_day</span> <span class="o">=</span> <span class="n">yearly</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">yearly</span><span class="o">.</span><span class="n">trip_duration_min</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">60</span><span class="p">))]</span><span class="c1">#&amp;(cleaned1.trip_duration_min &lt; (48*60))]</span>
 <span class="n">more_than_a_day</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">trips_more_than_a_day</span><span class="p">)</span> <span class="c1">#no of rides that lasted more than a day</span>
 <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;No of rides that lasted more than a day:&quot;</span><span class="p">,</span><span class="n">more_than_a_day</span><span class="p">,</span><span class="s1">&#39;</span><span class="si">{0:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">more_than_a_day</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">yearly</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">),</span><span class="s2">&quot;</span><span class="si">% o</span><span class="s2">f total&quot;</span><span class="p">)</span>
@@ -14632,8 +14644,9 @@ For casuals: Saturday
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#defining functions to be used for our analysis:</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#</span>
+<span class="c1">#defining functions to be used for our analysis:</span>
+<span class="c1">#</span>
 
 <span class="c1">#Defining one function to identify members and casual riders.</span>
 <span class="c1">#this filter will return two new df&#39;s, for members and for casual riders</span>
@@ -20381,21 +20394,6 @@ C:\Users\Savvas\AppData\Local\Temp/ipykernel_27544/2329826092.py:80: UserWarning
 
 </div>
 
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Last corrections: </span>
-<span class="c1">#Remove time</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
 </div>
 
 </div>
