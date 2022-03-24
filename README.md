@@ -1,28 +1,18 @@
 Project description:
 
-Cyclistic is a  bike sharing company operating in Chicago. Riders can be
-either casual riders (paying for single-ride or daily pass) or members 
-(paying annual membership). 
-
-Financial analysis showed that members are much more profitable. The director
-of marketing, Moreno, believes that maximizing members is key for the future
-growth of the company. Her goal is to design marketing strategies to convert 
-casual riders into annual members.
-
-She assigned to me, a junior data analyst, to identify how annual members and
-casual riders use Cyclistic bikes differently. The findings of this analysis
-will be a cornerstone for the design of the marketing strategy. 
+Cyclistic is a bike-share company in Chicago. Their bikes are geotracked and locked
+into a network of stations across Chicago. Users can be either casual riders (with
+single-ride or full-day passes) or annual members. The goal of this porject is to
+identify key differences between casual riders and annual members. The results will
+be a cornerstone for the design of a marketing strategy aiming to convert casual 
+riders to annual members. 
 
 
-Project Comments:
+Packages used:
 
-This is a capstone project for Google Data Analytics Professional Certificate, 
-a series of 8 courses. It is based on a case study written by Kevin Hartman
-(found here: https://artscience.blog/home/divvy-dataviz-case-study). 
-
-Although the course suggests doing the analysis in R by providing a basic
-analysis script, I chose to do it in python.
-
+Python was used for data preparation, processing and analysis.
+Inkscape was used to prepare graphics.
+Libre office impress was used for the final presentation.
 
 
 Data used:
@@ -35,5 +25,10 @@ using riders’ personally identifiable information (like any information relate
 card numbers). We used data for rides between September 2020 and August 2021.
 
 
+More info:
+
+This is a capstone project for Google Data Analytics Professional Certificate, 
+a series of 8 courses. It is based on a case study written by Kevin Hartman
+(found here: https://artscience.blog/home/divvy-dataviz-case-study). 
 
 
