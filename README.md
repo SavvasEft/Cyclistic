@@ -1,4 +1,4 @@
-Project description:
+# Project description:
 
 Cyclistic is a bike-share company in Chicago. Their bikes are geotracked and locked
 into a network of stations across Chicago. Users can be either casual riders (with
@@ -8,14 +8,14 @@ be a cornerstone for the design of a marketing strategy aiming to convert casual
 riders to annual members. 
 
 
-Packages used:
+# Packages used:
 
 Python was used for data preparation, processing and analysis.
 Inkscape was used to prepare graphics.
 Libre office impress was used for the final presentation.
 
 
-Data used:
+# Data used:
 
 Cyclistic is a fictional company. The data used are from a real bike sharing company
 (found here: https://divvy-tripdata.s3.amazonaws.com/index.html) and have been made
@@ -25,7 +25,7 @@ using riders’ personally identifiable information (like any information relate
 card numbers). We used data for rides between September 2020 and August 2021.
 
 
-More info:
+# More info:
 
 This is a capstone project for Google Data Analytics Professional Certificate, 
 a series of 8 courses. It is based on a case study written by Kevin Hartman
