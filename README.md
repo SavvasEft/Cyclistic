@@ -3,7 +3,7 @@
 ## Project description:
 
 In this project, bike traffic is analyzed for two different user groups for a bike-sharing
-company. The goal of the analysis is to identify key-differences between bike usage between 
+company. The goal of the analysis is to identify key-differences between bike usage for 
 the two groups.
 
 ## Scenario
@@ -20,11 +20,12 @@ aiming to convert casual riders to annual members.
 Cyclistic is a fictional company. The data used are from a real bike sharing company
 (found here: https://divvy-tripdata.s3.amazonaws.com/index.html) and have been made
 available by Motivate International Inc. under the license found here: 
-https://www.divvybikes.com/data-license-agreement. Data-privacy issues prohibit us from
-using riders’ personally identifiable information (like any information related to credit
+https://www.divvybikes.com/data-license-agreement. Data-privacy issues prohibit usage 
+of riders’ personally identifiable information (like any information related to credit
 card numbers). We used data for rides between September 2020 and August 2021.
 
-Analysis and findings were done in a jupyter notebook.
+Data Cleaning, Processing, Feature engineering and Analysis of the clean data
+was done in a jupyter notebook.
 
 ## Scenario details:
 
